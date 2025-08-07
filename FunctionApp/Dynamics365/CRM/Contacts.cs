@@ -19,7 +19,7 @@ namespace Plumsail.DataSource.Dynamics365.CRM
 
                 if (!id.HasValue)
                 {
-                    var contactsJson = await client.GetStringAsync("contacts?$select=cr174_patientid,info");
+                    var contactsJson = await client.GetStringAsync("cr174_patient_info?$select=cr174_patientid,info");
                     var contacts = JsonValue.Parse(contactsJson);
                     return new OkObjectResult(contacts?["value"]);
                 }
