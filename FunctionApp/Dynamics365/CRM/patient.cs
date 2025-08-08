@@ -6,7 +6,7 @@ using System.Text.Json.Nodes;
 
 namespace Plumsail.DataSource.Dynamics365.CRM
 {
-    public class Patients(HttpClientProvider httpClientProvider, ILogger<Contacts> logger)
+    public class Patients(HttpClientProvider httpClientProvider, ILogger<Patients> logger)
     {
         [Function("D365-CRM-Patients")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "crm/cr174_patient/{id?}")] HttpRequest req, Guid? id)
