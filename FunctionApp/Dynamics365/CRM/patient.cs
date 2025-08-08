@@ -9,7 +9,7 @@ namespace Plumsail.DataSource.Dynamics365.CRM
     public class Patients(HttpClientProvider httpClientProvider, ILogger<Contacts> logger)
     {
         [Function("D365-CRM-Patients")]
-        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "crm/cr174_patient_info/{id?}")] HttpRequest req, Guid? id)
+        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "crm/cr174_patient/{id?}")] HttpRequest req, Guid? id)
         {
             logger.LogInformation("Dynamics365-CRM-Patients is requested.");
 
@@ -19,12 +19,12 @@ namespace Plumsail.DataSource.Dynamics365.CRM
 
                 if (!id.HasValue)
                 {
-                    var contactsJson = await client.GetStringAsync("cr174_patient_info?$select=cr174_patientid,info");
+                    var contactsJson = await client.GetStringAsync("cr174_patient?$select=cr174_psscid,info");
                     var contacts = JsonValue.Parse(contactsJson);
                     return new OkObjectResult(contacts?["value"]);
                 }
 
-                var contactResponse = await client.GetAsync($"cr174_patient_info({id})");
+                var contactResponse = await client.GetAsync($"cr174_patient({id})");
                 if (!contactResponse.IsSuccessStatusCode)
                 {
                     if (contactResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
