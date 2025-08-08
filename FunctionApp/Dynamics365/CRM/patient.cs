@@ -36,7 +36,7 @@ namespace Plumsail.DataSource.Dynamics365.CRM
                     patientResponse.EnsureSuccessStatusCode();
                 }
 
-                var patientJson = await contactResponse.Content.ReadAsStringAsync();
+                var patientJson = await patientResponse.Content.ReadAsStringAsync();
                 return new ContentResult()
                 {
                     Content = patientJson,
