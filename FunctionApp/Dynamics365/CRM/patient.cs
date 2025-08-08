@@ -6,12 +6,12 @@ using System.Text.Json.Nodes;
 
 namespace Plumsail.DataSource.Dynamics365.CRM
 {
-    public class Contacts(HttpClientProvider httpClientProvider, ILogger<Contacts> logger)
+    public class Patients(HttpClientProvider httpClientProvider, ILogger<Contacts> logger)
     {
-        [Function("D365-CRM-Contacts")]
+        [Function("D365-CRM-Patients")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "crm/cr174_patient_info/{id?}")] HttpRequest req, Guid? id)
         {
-            logger.LogInformation("Dynamics365-CRM-Contacts is requested.");
+            logger.LogInformation("Dynamics365-CRM-Patients is requested.");
 
             try
             {
@@ -45,7 +45,7 @@ namespace Plumsail.DataSource.Dynamics365.CRM
             }
             catch (HttpRequestException ex)
             {
-                logger.LogError(ex, "An error has occured while processing Dynamics365-CRM-Contacts request.");
+                logger.LogError(ex, "An error has occured while processing Dynamics365-CRM-Patients request.");
                 return new StatusCodeResult(ex.StatusCode.HasValue ? (int)ex.StatusCode.Value : StatusCodes.Status500InternalServerError);
             }
         }
