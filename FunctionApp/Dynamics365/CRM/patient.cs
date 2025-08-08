@@ -39,7 +39,7 @@ namespace Plumsail.DataSource.Dynamics365.CRM
                 var patientJson = await contactResponse.Content.ReadAsStringAsync();
                 return new ContentResult()
                 {
-                    Content = contactJson,
+                    Content = patientJson,
                     ContentType = "application/json"
                 };
             }
