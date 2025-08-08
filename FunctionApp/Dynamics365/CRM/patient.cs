@@ -19,24 +19,24 @@ namespace Plumsail.DataSource.Dynamics365.CRM
 
                 if (!id.HasValue)
                 {
-                    var contactsJson = await client.GetStringAsync("cr174_patient?$select=cr174_psscid,info");
-                    var contacts = JsonValue.Parse(contactsJson);
-                    return new OkObjectResult(contacts?["value"]);
+                    var patientsJson = await client.GetStringAsync("cr174_patient?$select=cr174_psscid,info");
+                    var patients = JsonValue.Parse(patientsJson);
+                    return new OkObjectResult(patients?["value"]);
                 }
 
-                var contactResponse = await client.GetAsync($"cr174_patient({id})");
-                if (!contactResponse.IsSuccessStatusCode)
+                var patientResponse = await client.GetAsync($"cr174_patient({id})");
+                if (!patientResponse.IsSuccessStatusCode)
                 {
-                    if (contactResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    if (patientResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
                         return new NotFoundResult();
                     }
 
                     // throws Exception
-                    contactResponse.EnsureSuccessStatusCode();
+                    patientResponse.EnsureSuccessStatusCode();
                 }
 
-                var contactJson = await contactResponse.Content.ReadAsStringAsync();
+                var patientJson = await contactResponse.Content.ReadAsStringAsync();
                 return new ContentResult()
                 {
                     Content = contactJson,
